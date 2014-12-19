@@ -27,12 +27,16 @@ def processing_file(data):
     info.pop(0)
     for row in info:
         lista = row.split(";")
-        stock_prod = Stock()
+        try:
+            stock_prod = Stock.objects.get(id_stock=int(lista[4]))
+        except:
+            stock_prod = Stock()
         stock_prod.cod_local = lista[0]
         stock_prod.cod_mat = int(lista[1])
         stock_prod.description = lista[2]
         stock_prod.instock = int(lista[3])
-      #  stock_prod.save()
+        stock_prod.id_stock = int(lista[4])
+        stock_prod.save()
 
 
 def method_dispatcher(request, *args, **kwargs):
